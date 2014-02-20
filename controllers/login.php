@@ -18,8 +18,8 @@ class LoginController extends Concrete5_Controller_Login {
 		//load the Google Authenticator class
 		Loader::library( 'google_authenticator', 'two_factor_authentication' );
 		
-		$valid_token = GoogleAuthenticator::validateToken( 'AXJBOWJQLXD45LPV', $this->post('uToken')  );
-		
+		$valid_token = GoogleAuthenticator::validateToken( 'X7UXPTQISS6S7RMP', $this->post('uToken')  );
+
 		//if toke not valid, throw Exception
 		if( $valid_token == false ) {
 			throw new Exception(t('Token expired/invalid.'));

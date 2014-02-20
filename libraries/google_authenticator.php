@@ -57,11 +57,28 @@ class GoogleAuthenticator {
 	}
 	
 	/**
+     * Create new secret.
+     */
+    public static function createSecret( $secretLength = 16 ) {
+	
+        $validChars = self::getBase32LookupTable();
+        unset($validChars[32]);
+
+        $secret = '';
+        for ($i = 0; $i < $secretLength; $i++) {
+            $secret .= $validChars[array_rand($validChars)];
+        }
+		
+        return $secret;
+    }
+	
+	/**
      * Decode base 32
      */
-    protected static function base32Decode( $secret )
-    {
-        if (empty($secret)) return '';
+    protected static function base32Decode( $secret ) {
+	
+        if (empty($secret)) 
+			return '';
 
         $base32chars = self::getBase32LookupTable();
         $base32charsFlipped = array_flip($base32chars);
@@ -76,6 +93,7 @@ class GoogleAuthenticator {
         $secret = str_replace('=','', $secret);
         $secret = str_split($secret);
         $binaryString = "";
+		
         for ($i = 0; $i < count($secret); $i = $i+8) {
             $x = "";
             if (!in_array($secret[$i], $base32chars)) return false;
@@ -93,9 +111,10 @@ class GoogleAuthenticator {
     /**
      * Encode to base 32
      */
-    protected function base32Encode($secret, $padding = true)
-    {
-        if (empty($secret)) return '';
+    protected static function base32Encode($secret, $padding = true) {
+	
+        if (empty($secret)) 
+			return '';
 
         $base32chars = self::getBase32LookupTable();
 
@@ -123,8 +142,7 @@ class GoogleAuthenticator {
     /**
      * Static list of the 32 chars
      */
-    protected static function getBase32LookupTable()
-    {
+    protected static function getBase32LookupTable() {
         return array(
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', //  7
             'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', // 15
