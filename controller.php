@@ -9,7 +9,7 @@ class TwoFactorAuthenticationPackage extends Package {
 	//C5 required vars
 	protected $pkgHandle 			= 'two_factor_authentication';
 	protected $appVersionRequired	= '5.6.2';
-	protected $pkgVersion 			= '1.0';
+	protected $pkgVersion 			= '0.1';
 
 	/**
 	* C5 required functions
